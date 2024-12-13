@@ -115,20 +115,6 @@ body {
     border-color: var(--color-green);
 }
 
-.loader-container {
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-}
-
-.loader-gif {
-    position: absolute;
-    width: 260px;
-    left: -130px;
-    top: -60px;
-    display: none;
-}
-
 .wrong {
     animation-name: wrong;
     animation-duration: 1s;

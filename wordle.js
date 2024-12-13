@@ -5,7 +5,6 @@ const NUMBER_ROWS = 6;
 let currentWord;
 
 const rows = document.querySelectorAll(".word-row");
-const loader = document.querySelector(".loader-gif");
 const alert = document.querySelector(".alert-wrapper");
 let focusRow = 0;
 let buffer = "";
