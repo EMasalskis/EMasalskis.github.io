@@ -54,6 +54,11 @@
     }
 }
 
+@font-face {
+    font-family: 'NYTKarnak'; /*a name to be used later*/
+    src: url('karnak.woff2');
+}
+
 * {
     box-sizing: border-box;
 }
@@ -74,6 +79,11 @@ body {
     align-items: center;
     max-width: 1200px;
     height: 100vh;
+}
+
+.brand {
+    font-family: 'NYTKarnak';
+    font-size: 44px;
 }
 
 .word-row {
