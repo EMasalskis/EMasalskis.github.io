@@ -7,6 +7,7 @@ let WORD;
 const rows = document.querySelectorAll(".word-row");
 let focusRow = 0;
 let buffer = "";
+let busy = false;
 
 async function initializeWord() {
     const promise = await fetch(GET_URL);
@@ -37,12 +38,15 @@ function handleBackspace() {
 }
 
 function handleEnter() {
-    if (buffer.length == 5) {
+    if (buffer.length == 5 && !busy) {
+        busy = true
         tryWord(buffer).then(function (response) {
             if (response) {
                 checkGuess(buffer);
+                busy = false;
             } else {
                 console.log(buffer + " is not a valid word!");
+                busy = false;
             }
         });
     }
@@ -79,20 +83,29 @@ function checkGuess(guess) {
         }
     }
 
-    if (buffer == WORD) {
-        alert("You guessed today's word!");
-        buffer = ""
-        focusRow = 0
-    }
-
-    if (focusRow >= NUMBER_ROWS - 1) {
-        alert("You guessed today's word!");
-        buffer = ""
-        focusRow = 0
-    }
-
     buffer = ""
     focusRow++;
+
+    if (guess == WORD) {
+        alert("You guessed today's word!");
+        resetGame();
+    }
+
+    if (focusRow >= NUMBER_ROWS) {
+        alert("You lost. Todays word was: " + WORD);
+        resetGame();
+    }
+}
+
+function resetGame() {
+    for (let i = 0; i < NUMBER_ROWS; i++) {
+        for (let j = 0; j < NUMBER_LETTERS; j++) {
+            rows[i].children[j].textContent = "";
+            rows[i].children[j].classList.remove("guessed-green", "guessed-yellow", "guessed-grey");
+        }
+    }
+    buffer = "";
+    focusRow = 0;
 }
 
 function rerender() {
