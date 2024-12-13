@@ -1,10 +1,12 @@
-const GET_URL = "https://words.dev-apis.com/word-of-the-day";
+const GET_URL = "https://words.dev-apis.com/word-of-the-day?random=1";
 const POST_URL = "https://words.dev-apis.com/validate-word"
 const NUMBER_LETTERS = 5;
 const NUMBER_ROWS = 6;
-let WORD;
+let currentWord;
 
 const rows = document.querySelectorAll(".word-row");
+const loader = document.querySelector(".loader-gif");
+const alert = document.querySelector(".alert-wrapper");
 let focusRow = 0;
 let buffer = "";
 let busy = false;
@@ -12,7 +14,7 @@ let busy = false;
 async function initializeWord() {
     const promise = await fetch(GET_URL);
     const processedResponse = await promise.json();
-    WORD = processedResponse.word;
+    currentWord = processedResponse.word;
 }
 
 async function tryWord(word) {
@@ -43,21 +45,20 @@ function handleEnter() {
         tryWord(buffer).then(function (response) {
             if (response) {
                 checkGuess(buffer);
-                busy = false;
             } else {
-                console.log(buffer + " is not a valid word!");
-                busy = false;
+                wrongAnimation();
             }
+            busy = false;
         });
     }
 }
 
 function checkGuess(guess) {
-    wordCharList = WORD.split("");
+    wordCharList = currentWord.split("");
 
     // first check the greens and remove from the letter list
     for (let i = 0; i < NUMBER_LETTERS; i++) {
-        if (guess[i] == WORD[i]) {
+        if (guess[i] == currentWord[i]) {
             rows[focusRow].children[i].classList.add("guessed-green");
             // remove letter from list
             const index = wordCharList.indexOf(guess[i]);
@@ -69,7 +70,7 @@ function checkGuess(guess) {
 
     // then check the rest
     for (let i = 0; i < NUMBER_LETTERS; i++) {
-        if (guess[i] == WORD[i]) {
+        if (guess[i] == currentWord[i]) {
             // do nothing
         } else if (wordCharList.includes(guess[i])) {
             rows[focusRow].children[i].classList.add("guessed-yellow");
@@ -86,14 +87,31 @@ function checkGuess(guess) {
     buffer = ""
     focusRow++;
 
-    if (guess == WORD) {
-        alert("You guessed today's word!");
-        resetGame();
+    if (guess === currentWord) {
+        handleGameEnd(true);
+    } else if (focusRow >= NUMBER_ROWS) {
+        handleGameEnd(false);
     }
+}
 
-    if (focusRow >= NUMBER_ROWS) {
-        alert("You lost. Todays word was: " + WORD);
-        resetGame();
+function handleGameEnd(won) {
+    const cells = rows[focusRow - 1].children;
+    let animationsCompleted = 0;
+
+    for (let cell of cells) {
+        cell.addEventListener("animationend", function onAnimationEnd() {
+            animationsCompleted++;
+            cell.removeEventListener("animationend", onAnimationEnd);
+
+            // Check if all animations have finished
+            if (animationsCompleted === NUMBER_LETTERS) {
+                if (won) {
+                    displayAlert("🎉 You won! 🎉");
+                } else {
+                    displayAlert("You lost. The word was: " + currentWord.toUpperCase());
+                }
+            }
+        });
     }
 }
 
@@ -118,6 +136,25 @@ function rerender() {
     }
 }
 
+function wrongAnimation() {
+    const currentRow = rows[focusRow];
+    for (let i = 0; i < NUMBER_LETTERS; i++) {
+        const cell = currentRow.children[i];
+        cell.classList.add("wrong");
+
+        // Remove the animation class after it ends
+        cell.addEventListener("animationend", function() {
+            cell.classList.remove("wrong");
+        }, { once: true });
+    }
+}
+
+function displayAlert(text) {
+    alertText = alert.querySelector(".alert-text");
+    alert.style.display = "flex";
+    alertText.textContent = text;
+}
+
 initializeWord();
 
 document
@@ -133,4 +170,13 @@ document
         event.preventDefault();
     }
     rerender();
+});
+
+alertButton = alert.querySelector(".alert-button");
+
+alertButton.addEventListener("click", function () {
+    resetGame();
+    initializeWord();
+
+    alert.style.display = "none";
 });
