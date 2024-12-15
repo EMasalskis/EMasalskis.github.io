@@ -28,7 +28,7 @@ function isLetter(letter) {
 
 function handleLetter(letter) {
     if (buffer.length < NUMBER_LETTERS) {
-        buffer += letter;
+        buffer += letter.toLowerCase();
     }
 }
 
@@ -133,6 +133,8 @@ function rerender() {
             rows[focusRow].children[i].textContent = "";
         }
     }
+    console.log(buffer);
+    console.log(currentWord);
 }
 
 function wrongAnimation() {
