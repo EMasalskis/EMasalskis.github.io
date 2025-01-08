@@ -1,11 +1,13 @@
 :root {
-    --primary-color: #31353d;
-    --primary-color-darker: #292c33;
-    --color-green: #78BC61;
-    --color-orange: #FF8B08;
-    --color-red: #FF0364;
-    --light-color: #F8F8F8;
-    --dark-color: #0C1424;
+    --primary-color-rgb: 218, 222, 228;
+    --primary-color: #DADEE3;
+    --primary-color-darker: #94989D;
+    --color-green: #60B144;
+    --color-orange: #FFAB00;
+    --color-orange-light: #FFCC66;
+    --color-red: #C4242B;
+    --light-color: #FFFFFF;
+    --dark-color: #000000;
 }
 
 @keyframes wrong {
@@ -25,7 +27,7 @@
 
 @keyframes greyFade {
     0% {
-        background-color: var(--dark-color);
+        background-color: var(--primary-color);
     }
     100% {
         background-color: var(--primary-color);
@@ -34,7 +36,7 @@
 
 @keyframes yellowFade {
     0% {
-        background-color: var(--dark-color);
+        background-color: var(--primary-color);
         border-color: var(--primary-color);
     }
     100% {
@@ -45,7 +47,7 @@
 
 @keyframes greenFade {
     0% {
-        background-color: var(--dark-color);
+        background-color: var(--primary-color);
         border-color: var(--primary-color);
     }
     100% {
@@ -55,35 +57,87 @@
 }
 
 @font-face {
-    font-family: 'NYTKarnak'; /*a name to be used later*/
-    src: url('karnak.woff2');
+    font-family: 'SourceSansPro-Bold';
+    src: url('SourceSansPro-Bold.otf');
+}
+
+@font-face {
+    font-family: 'SourceSansPro-Regular';
+    src: url('SourceSansPro-Regular.otf');
 }
 
 * {
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    color: var(--light-color);
-    margin: 0;
-    background-color: var(--dark-color);
-    display: flex;
-    justify-content: center;
+a {
+    text-decoration: none;
 }
 
-.content-wrapper {
+body {
+    font-family: 'SourceSansPro-Regular', sans-serif;
+    color: var(--dark-color);
+    margin: 0;
+    background-color: var(--light-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    z-index: 999;
+    padding: 0px 96px;
+    background-color: var(--light-color);
+    border-bottom: var(--primary-color) 1px solid;
+    display: flex;
+    align-items: center;
+}
+
+.nav-offset {
+    height: 64px;
+}
+
+.brand-logo {
+    height: 32px;
+}
+
+.nav-links {
+    margin: 0px 24px;
+}
+
+.nav-link {
+    color: var(--color-orange);
+    font-size: 14px;
+    margin: 0px 12px;
+    padding: 12px;
+    font-family: SourceSansPro-Regular;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.25);
+}
+
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 1200px;
-    height: 100vh;
+    margin: 0 36px;
+    padding: 0 60px;
 }
 
-.brand {
-    font-family: 'NYTKarnak';
-    font-size: 44px;
+.horizontal {
+    flex-direction: row;
+}
+
+.word-grid {
+    margin: 32px 0px;
 }
 
 .word-row {
@@ -91,18 +145,16 @@ body {
 }
 
 .word-cell {
-    font-size: 32px;
-    font-weight: bold;
-    width: 64px;
-    height: 64px;
+    font-size: 24px;
+    font-family: SourceSansPro-Bold;
+    width: 48px;
+    height: 48px;
     margin: 5px;
     border: var(--primary-color) 2px solid;
-    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
-    z-index: 2;
 }
 
 .guessed-grey {
@@ -148,17 +200,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--dark-color);
+    background-color: var(--light-color);
     padding: 64px;
-    border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .1);
 }
 
 .alert-button {
-    background-color: var(--dark-color);
+    background-color: var(--light-color);
     border: var(--primary-color) 2px solid;
     border-radius: 5px;
-    color: var(--light-color);
+    color: var(--dark-color);
     text-transform: uppercase;
     font-size: 16px;
     font-weight: bold;
@@ -173,4 +224,106 @@ body {
 .alert-button:active {
     background-color: var(--primary-color-darker);
     border-color: var(--primary-color-darker);
+}
+
+.footer-container {
+    margin: 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    border-top: var(--primary-color) 1px solid;
+}
+
+.footer-content {
+    margin: 32px 0;
+    color: var(--primary-color-darker);
+}
+
+.hero-text {
+    margin: 32px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.background-container {
+    background-color: var(--color-orange);
+}
+
+.game-card-row {
+    display: flex;
+    align-items: stretch;
+    margin: 32px 0;
+}
+
+.game-card {
+    padding: 32px;
+    margin: 16px;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    max-width: 256px;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    align-self: stretch;
+}
+.game-card:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, .25);
+}
+
+.card-icon {
+    height: 64px;
+}
+
+.card-title {
+    color: var(--dark-color);
+    font-family: SourceSansPro-Bold;
+    margin-top: 16px;
+    font-size: 28px;
+}
+
+.card-description {
+    margin-top: 16px;
+    text-align: center;
+    color: var(--primary-color-darker);
+}
+
+.crossword-grid {
+    margin: 32px 0px;
+    border-top: var(--primary-color-darker) 3px solid;
+    border-right: var(--primary-color-darker) 3px solid;
+    border-bottom: var(--primary-color-darker) 2px solid;
+    border-left: var(--primary-color-darker) 2px solid;
+}
+
+.crossword-row {
+    display: flex;
+}
+
+.crossword-cell {
+    font-size: 32px;
+    font-family: SourceSansPro-Bold;
+    width: 64px;
+    height: 64px;
+    border-bottom: var(--primary-color-darker) 1px solid;
+    border-left: var(--primary-color-darker) 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.crossword-cell-highlighted {
+    background-color: var(--primary-color);
+}
+
+.crossword-cell-focused {
+    background-color: var(--color-orange-light);
+}
+
+.crossword-clue {
+    padding: 32px;
+    border-radius: 8px;
+    background-color: rgba(var(--primary-color-rgb), 0.25);
 }

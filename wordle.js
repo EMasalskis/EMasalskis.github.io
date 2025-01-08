@@ -1,5 +1,5 @@
-const GET_URL = "https://words.dev-apis.com/word-of-the-day?random=1";
-const POST_URL = "https://words.dev-apis.com/validate-word"
+const GET_URL = "https://vercel-demo-ochre-omega.vercel.app/api/word";
+const POST_URL = GET_URL;
 const NUMBER_LETTERS = 5;
 const NUMBER_ROWS = 6;
 let currentWord;
@@ -133,8 +133,6 @@ function rerender() {
             rows[focusRow].children[i].textContent = "";
         }
     }
-    console.log(buffer);
-    console.log(currentWord);
 }
 
 function wrongAnimation() {

@@ -5,65 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"/>
     <link rel="stylesheet" href="styles.css"/>
-    <title>Emilio Wordle</title>
+    <title>LRT Žaidimai</title>
 </head>
 <body>
-    <div class="content-wrapper">
-        <h1 class="brand">
-            Emilio Wordle
-        </h1>
-        <div class="word-row">
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
+    <nav class="nav">
+        <a href="index.html">
+            <img src="logo.svg" alt="logo" class="brand-logo">
+        </a>
+    </nav>
+    <div class="nav-offset"></div>
+    <div class="main-content-wrapper">
+        <div class="container">
+            <div class="hero-text">
+                Atraskite smagius ir iššūkių kupinus žodžių žaidimus vienoje vietoje.
+            </div>
         </div>
-        <div class="word-row">
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-        </div>
-        <div class="word-row">
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-        </div>
-        <div class="word-row">
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-        </div>
-        <div class="word-row">
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-        </div>
-        <div class="word-row">
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
-            <div class="word-cell"></div>
+        <div class="background-container">
+            <div class="container">
+                <div class="game-card-row">
+                    <a href="dienos_zodis.html">
+                        <div class="game-card">
+                            <img src="wordle.svg" alt="wordle" class="card-icon">
+                            <div class="card-title">Dienos Žodis</div>
+                            <div class="card-description">Turite 6 bandymus atspėti 5 raidžių žodį.</div>
+                        </div>
+                    </a>
+                    <a href="kryziazodis.html">
+                        <div class="game-card">
+                            <img src="daily.svg" alt="daily" class="card-icon">
+                            <div class="card-title">Kryžiažodis</div>
+                            <div class="card-description">Kiek žodžių galite sudėti iš 7 raidžių?</div>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="game-card">
+                            <img src="spelling-bee.svg" alt="spelling-bee" class="card-icon">
+                            <div class="card-title">Raidžių Avilys</div>
+                            <div class="card-description">Suraskite tinkamus žodžius ir išspręskite kryžiažodį!</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="alert-wrapper">
-        <div class="alert-box">
-            <h1 class="alert-text">
-            </h1>
-            <button class="alert-button">
-                Try another word
-            </button>
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-content">
+                Šis puslapis yra asmeninis projektas ir nėra susijęs su LRT arba lrt.lt.
+            </div>
         </div>
-    </div>
-    <script src="wordle.js"></script>
+    </footer>
 </body>
 </html>
