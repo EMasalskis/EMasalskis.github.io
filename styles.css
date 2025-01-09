@@ -215,6 +215,8 @@ body {
     font-weight: bold;
     height: 64px;
     padding: 0 64px;
+    display: flex;
+    align-items: center;
 }
 
 .alert-button:hover {

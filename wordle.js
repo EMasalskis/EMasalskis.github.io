@@ -19,7 +19,7 @@ async function initializeWord() {
 async function tryWord(word) {
     const promise = await fetch(POST_URL, {method: "POST", body: JSON.stringify({"word": word})});
     const processedResponse = await promise.json();
-    return processedResponse.validWord
+    return processedResponse.isValid
 }
 
 function isLetter(letter) {
@@ -43,8 +43,12 @@ function handleEnter() {
         busy = true
         tryWord(buffer).then(function (response) {
             if (response) {
+                console.log(response);
+                
                 checkGuess(buffer);
             } else {
+                console.log(response);
+                
                 wrongAnimation();
             }
             busy = false;
@@ -105,9 +109,9 @@ function handleGameEnd(won) {
             // Check if all animations have finished
             if (animationsCompleted === NUMBER_LETTERS) {
                 if (won) {
-                    displayAlert("🎉 You won! 🎉");
+                    displayAlert("🎉 Atspėjote žodį! 🎉");
                 } else {
-                    displayAlert("You lost. The word was: " + currentWord.toUpperCase());
+                    displayAlert("Neatspėjote, žodis buvo: " + currentWord.toUpperCase());
                 }
             }
         });
@@ -169,13 +173,4 @@ document
         event.preventDefault();
     }
     rerender();
-});
-
-alertButton = alert.querySelector(".alert-button");
-
-alertButton.addEventListener("click", function () {
-    resetGame();
-    initializeWord();
-
-    alert.style.display = "none";
 });
